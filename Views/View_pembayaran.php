@@ -9,58 +9,67 @@ $GetPembayaran = $pembayaran->GetData_All();
 // echo var_dump($kelas);
 ?>
 
+<div class="card border-light cardBackground">
+    <div class="card-header">OOP - Class, Object, Property, Method With <u>MVC</u></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">CRUD and CSRF</h4>
+        <h5 class="card-title">Table Pembayaran</h5>
+        <h5 class=" card-title"><a class="btn addDataBtn" href="main.php?menu=<?php echo base64_encode('id_po_pem') ?>">Add Data</a></h5>
 
-<h1>OOP - Class, Object, Property, Method With <u>MVC</u></h1>
-<h2>CRUD and CSRF</h2>
-<h3><a href="View_siswa.php">Siswa</a> | <a href="View_spp.php">SPP</a> | <a href="View_kelas.php">Kelas</a> | <a href="View_petugas.php">Petugas</a></h3>
-<h3>Table Pembayaran</h3>
-<h3><a href="View_post_pembayaran.php">Add Data</a></h3>
+        <p class="card-text">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Petugas</th>
+                    <th scope="col">NISN</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tanggal Bayar</th>
+                    <th scope="col">Bulan Bayar</th>
+                    <th scope="col">Tahun Bayar</th>
+                    <th scope="col">Nominal</th>
+                    <th scope="col">Jumlah Bayar</th>
+                    <th scope="col" class="text-center">Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Decision validation variabel
+                if (isset($GetPembayaran)) {
+                    $no = 1;
+                    foreach ($GetPembayaran as $Get) {
+                ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $Get['nama_petugas']; ?></td>
+                            <td><?php echo $Get['nisn']; ?></td>
+                            <td><?php echo $Get['nama']; ?></td>
+                            <td><?php echo $Get['tgl_bayar']; ?></td>
+                            <td><?php echo $Get['bulan_dibayar']; ?></td>
+                            <td><?php echo $Get['tahun_bayar']; ?></td>
+                            <td><?php echo $Get['nominal']; ?></td>
+                            <td><?php echo $Get['jumlah_bayar']; ?></td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-light" href="main.php?menu=<?php echo base64_encode('id_pu_pem') ?>&id_pembayaran=<?php echo base64_encode($Get['id_pembayaran']) ?>">Edit</a>
+                                <button class="btn btn-outline-danger deleteBtn" onclick="konfirmasi('<?php echo base64_encode($Get['id_pembayaran']) ?>')">Delete</button>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
 
 
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Nama Petugas</th>
-        <th>NISN</th>
-        <th>Nama</th>
-        <th>Tanggal Bayar</th>
-        <th>Bulan Bayar</th>
-        <th>Tahun Bayar</th>
-        <th>Nominal</th>
-        <th>Jumlah Bayar</th>
-        <th>Tools</th>
-    </tr>
-    <?php
-    // Decision validation variabel
-    if (isset($GetPembayaran)) {
-        $no = 1;
-        foreach ($GetPembayaran as $Get) {
-    ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $Get['nama_petugas']; ?></td>
-                <td><?php echo $Get['nisn']; ?></td>
-                <td><?php echo $Get['nama']; ?></td>
-                <td><?php echo $Get['tgl_bayar']; ?></td>
-                <td><?php echo $Get['bulan_dibayar']; ?></td>
-                <td><?php echo $Get['tahun_bayar']; ?></td>
-                <td><?php echo $Get['nominal']; ?></td>
-                <td><?php echo $Get['jumlah_bayar']; ?></td>
-                <td>
-                    <a href="../Views/View_put_pembayaran.php?id_pembayaran=<?php echo base64_encode($Get['id_pembayaran']) ?>">view</a>
-                    <input type="submit" onclick="konfirmasi(<?php echo $Get['id_pembayaran'] ?>)" value="Delete">
+            </tbody>
+        </table>
+        </p>
+    </div>
+</div>
 
-                </td>
-            </tr>
-    <?php
-        }
-    }
-    ?>
-</table>
 <script>
     function konfirmasi(id_pembayaran) {
+        var a = id_pembayaran
         if (window.confirm('apakah anda ingin menghapus data ini ?')) {
-            window.location.href = '../Config/Routes.php?function=delete_pembayaran&id_pembayaran=<?php echo base64_encode($Get['id_pembayaran']) ?>';
+            window.location.href = '../Config/Routes.php?function=delete_pembayaran&id_pembayaran=' + a;
         };
     }
 </script>

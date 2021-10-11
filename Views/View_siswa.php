@@ -9,56 +9,66 @@ $GetSiswa = $siswa->GetData_All();
 // echo var_dump($GetSiswa['nisn']);
 // die; 
 ?>
-<h1>OOP - Class, Object, Property, Method With <u>MVC</u></h1>
-<h2>CRUD and CSRF</h2>
-<h3><a href="View_spp.php">SPP</a> | <a href="View_kelas.php">Kelas</a> | <a href="View_petugas.php">Petugas</a> | <a href="View_pembayaran.php">Pembayaran</a></h3>
-<h3>Table Siswa</h3>
-<h3><a href="View_post_siswa.php">Add Data</a></h3>
+<div class="card border-light cardBackground">
+    <div class="card-header">OOP - Class, Object, Property, Method With <u>MVC</u></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">CRUD and CSRF</h4>
+        <h5 class="card-title">Table Siswa</h5>
+        <h5 class=" card-title"><a class="btn addDataBtn" href="main.php?menu=<?php echo base64_encode('id_po_s') ?>">Tambah Data</a></h5>
+
+        <p class="card-text">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">NISN</th>
+                    <th scope="col">NIS</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Kelas</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">No Telepon</th>
+                    <th scope="col">Nominal</th>
+                    <th scope="col" class="text-center">Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Decision validation variabel
+                if (isset($GetSiswa)) {
+                    $no = 1;
+                    foreach ($GetSiswa as $Get) {
+                ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $Get['nisn']; ?></td>
+                            <td><?php echo $Get['nis']; ?></td>
+                            <td><?php echo $Get['nama']; ?></td>
+                            <td><?php echo $Get['nama_kelas']; ?></td>
+                            <td><?php echo $Get['alamat']; ?></td>
+                            <td><?php echo $Get['no_telp']; ?></td>
+                            <td><?php echo $Get['nominal']; ?></td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-light" href="main.php?menu=<?php echo base64_encode('id_pu_s') ?>&nisn=<?php echo base64_encode($Get['nisn']) ?>">Edit</a>
+                                <button class="btn btn-outline-danger deleteBtn" onclick="konfirmasi('<?php echo base64_encode($Get['nisn']) ?>')">Delete</button>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
 
 
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>NISN</th>
-        <th>NIS</th>
-        <th>Nama</th>
-        <th>Kelas</th>
-        <th>Alamat</th>
-        <th>No Telepon</th>
-        <th>Nominal</th>
-        <th>Tools</th>
-    </tr>
-    <?php
-    // Decision validation variabel
-    if (isset($GetSiswa)) {
-        $no = 1;
-        foreach ($GetSiswa as $Get) {
-    ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $Get['nisn']; ?></td>
-                <td><?php echo $Get['nis']; ?></td>
-                <td><?php echo $Get['nama']; ?></td>
-                <td><?php echo $Get['nama_kelas']; ?></td>
-                <td><?php echo $Get['alamat']; ?></td>
-                <td><?php echo $Get['no_telp']; ?></td>
-                <td><?php echo $Get['nominal']; ?></td>
-                <td>
-                    <a href="../Views/View_put_siswa.php?nisn=<?php echo base64_encode($Get['nisn']) ?>">view</a>
-                    <input type="submit" onclick="konfirmasi(<?php echo $Get['nisn'] ?>)" value="Delete">
+            </tbody>
+        </table>
+        </p>
+    </div>
+</div>
 
-
-            </tr>
-    <?php
-        }
-    }
-    ?>
-</table>
 
 <script>
     function konfirmasi(nisn) {
+        var a = nisn;
         if (window.confirm('apakah anda ingin menghapus data ini ?')) {
-            window.location.href = '../Config/Routes.php?function=delete_siswa&nisn=<?php echo base64_encode($Get['nisn']) ?>';
+            window.location.href = '../Config/Routes.php?function=delete_siswa&nisn=' + a;
         };
     }
 </script>

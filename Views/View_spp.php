@@ -9,45 +9,55 @@ $GetSpp = $spp->GetData_All();
 // echo var_dump($kelas);
 ?>
 
+<div class="card border-light cardBackground">
+    <div class="card-header">OOP - Class, Object, Property, Method With <u>MVC</u></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">CRUD and CSRF</h4>
+        <h5 class="card-title">Table Spp</h5>
+        <h5 class=" card-title"><a class="btn addDataBtn" href="main.php?menu=<?php echo base64_encode('id_po_sp') ?>">Add Data</a></h5>
 
-<h1>OOP - Class, Object, Property, Method With <u>MVC</u></h1>
-<h2>CRUD and CSRF</h2>
-<h3><a href="View_siswa.php">Siswa</a> | <a href="View_kelas.php">Kelas</a> | <a href="View_petugas.php">Petugas</a> | <a href="View_pembayaran.php">Pembayaran</a></h3>
-<h3>Table Spp</h3>
-<h3><a href="View_post_spp.php">Add Data</a></h3>
+        <p class="card-text">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">Nominal</th>
+                    <th scope="col" class="text-center">Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Decision validation variabel
+                if (isset($GetSpp)) {
+                    $no = 1;
+                    foreach ($GetSpp as $Get) {
+                ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $Get['tahun']; ?></td>
+                            <td><?php echo $Get['nominal']; ?></td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-light" href="main.php?menu=<?php echo base64_encode('id_pu_sp') ?>&id_spp=<?php echo base64_encode($Get['id_spp']) ?>">Edit</a>
+                                <button class="btn btn-outline-danger deleteBtn" onclick="konfirmasi('<?php echo base64_encode($Get['id_spp']) ?>')">Delete</button>
+                            </td>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
 
+            </tbody>
+        </table>
+        </p>
+    </div>
+</div>
 
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Tahun</th>
-        <th>Nominal</th>
-        <th>Tools</th>
-    </tr>
-    <?php
-    // Decision validation variabel
-    if (isset($GetSpp)) {
-        $no = 1;
-        foreach ($GetSpp as $Get) {
-    ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $Get['tahun']; ?></td>
-                <td><?php echo $Get['nominal']; ?></td>
-                <td>
-                    <a href="../Views/View_put_spp.php?id_spp=<?php echo base64_encode($Get['id_spp']) ?>">view</a>
-                    <input type="submit" onclick="konfirmasi(<?php echo $Get['id_spp'] ?>)" value="Delete">
-                </td>
-            </tr>
-    <?php
-        }
-    }
-    ?>
-</table>
 <script>
     function konfirmasi(id_spp) {
+        var a = id_spp;
         if (window.confirm("Apakah anda ingin menghapus data ini?")) {
-            window.location.href = '../Config/Routes.php?function=delete_spp&id_spp=<?php echo base64_encode($Get['id_spp']) ?>';
-        };
+            window.location.href = '../Config/Routes.php?function=delete_spp&id_spp=' + a;
+        }
     }
 </script>

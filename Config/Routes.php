@@ -33,7 +33,7 @@ if ($function == "create_siswa") {
             $_POST['id_spp']
         );
     }
-    header("location:../Views/View_siswa.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_s'));
 }
 // Decision variabel put
 elseif ($function == "put_siswa") {
@@ -51,7 +51,7 @@ elseif ($function == "put_siswa") {
             $_POST['id_spp']
         );
     }
-    header("location:../Views/View_siswa.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_s'));
 }
 // Decision variabel delete
 elseif ($function == "delete_siswa") {
@@ -59,7 +59,7 @@ elseif ($function == "delete_siswa") {
     $db = new Controller_siswa();
     $nisn = base64_decode($_GET['nisn']);
     $db->DELETEData($nisn);
-    header("location:../Views/View_siswa.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_s'));
 }
 
 
@@ -79,7 +79,7 @@ if ($function == "create_kelas") {
             $_POST['kompetensi_keahlian']
         );
     }
-    header("location:../Views/View_kelas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_k'));
 }
 // Decision variabel put
 elseif ($function == "put_kelas") {
@@ -93,7 +93,7 @@ elseif ($function == "put_kelas") {
             $_POST['kompetensi_keahlian']
         );
     }
-    header("location:../Views/View_kelas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_k'));
 }
 // Decision variabel delete
 elseif ($function == "delete_kelas") {
@@ -101,7 +101,7 @@ elseif ($function == "delete_kelas") {
     $db = new Controller_kelas();
     $id_kelas = base64_decode($_GET['id_kelas']);
     $db->DELETEData($id_kelas);
-    header("location:../Views/View_kelas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_k'));
 }
 
 
@@ -122,7 +122,7 @@ if ($function == "create_spp") {
             $_POST['nominal']
         );
     }
-    header("location:../Views/View_spp.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_sp'));
 }
 // Decision variabel put
 elseif ($function == "put_spp") {
@@ -136,7 +136,7 @@ elseif ($function == "put_spp") {
             $_POST['nominal']
         );
     }
-    header("location:../Views/View_spp.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_sp'));
 }
 // Decision variabel delete
 elseif ($function == "delete_spp") {
@@ -144,7 +144,7 @@ elseif ($function == "delete_spp") {
     $db = new Controller_spp();
     $id_spp = base64_decode($_GET['id_spp']);
     $db->DELETEData($id_spp);
-    header("location:../Views/View_spp.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_sp'));
 }
 
 
@@ -166,7 +166,7 @@ if ($function == "create_petugas") {
             $_POST['level']
         );
     }
-    header("location:../Views/View_petugas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pet'));
 }
 // Decision variabel put
 elseif ($function == "put_petugas") {
@@ -182,7 +182,7 @@ elseif ($function == "put_petugas") {
             $_POST['level']
         );
     }
-    header("location:../Views/View_petugas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pet'));
 }
 // Decision variabel delete
 elseif ($function == "delete_petugas") {
@@ -190,7 +190,7 @@ elseif ($function == "delete_petugas") {
     $db = new Controller_petugas();
     $id_petugas = base64_decode($_GET['id_petugas']);
     $db->DELETEData($id_petugas);
-    header("location:../Views/View_petugas.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pet'));
 }
 
 
@@ -215,7 +215,7 @@ if ($function == "create_pembayaran") {
             $_POST['jumlah_bayar']
         );
     }
-    header("location:../Views/View_pembayaran.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pem'));
 }
 // Decision variabel put
 elseif ($function == "put_pembayaran") {
@@ -234,7 +234,7 @@ elseif ($function == "put_pembayaran") {
             $_POST['jumlah_bayar']
         );
     }
-    header("location:../Views/View_pembayaran.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pem'));
 }
 // Decision variabel delete
 elseif ($function == "delete_pembayaran") {
@@ -242,5 +242,5 @@ elseif ($function == "delete_pembayaran") {
     $db = new Controller_pembayaran();
     $id_pembayaran = base64_decode($_GET['id_pembayaran']);
     $db->DELETEData($id_pembayaran);
-    header("location:../Views/View_pembayaran.php");
+    header("location:../Views/main.php?menu=".base64_encode('id_pem'));
 }

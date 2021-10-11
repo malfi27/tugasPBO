@@ -8,7 +8,7 @@ class Database
 	var $host = "localhost";
 	var $uname = "root";
 	var $pass = "";
-	var $db = "pertemuan6_pbo";
+	var $db = "pbo-database";
 	var $connection;
 
 	// Method koneksi kedalam database

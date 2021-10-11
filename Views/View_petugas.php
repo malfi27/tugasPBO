@@ -8,51 +8,61 @@ $GetPetugas = $petugas->GetData_All();
 // untuk mengecek di object $siswa ada berapa banyak Property
 // echo var_dump($kelas);
 ?>
+<div class="card border-light cardBackground">
+    <div class="card-header">OOP - Class, Object, Property, Method With <u>MVC</u></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">CRUD and CSRF</h4>
+        <h5 class="card-title">Table Petugas</h5>
+        <h5 class=" card-title"><a class="btn addDataBtn" href="main.php?menu=<?php echo base64_encode('id_po_pet') ?>">Add Data</a></h5>
+
+        <p class="card-text">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Nama Petugas</th>
+                    <th scope="col">Level</th>
+                    <th scope="col" class="text-center">Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Decision validation variabel
+                if (isset($GetPetugas)) {
+                    $no = 1;
+                    foreach ($GetPetugas as $Get) {
+                ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $Get['username']; ?></td>
+                            <td><?php echo $Get['password']; ?></td>
+                            <td><?php echo $Get['nama_petugas']; ?></td>
+                            <td><?php echo $Get['level']; ?></td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-light" href="main.php?menu=<?php echo base64_encode('id_pu_pet') ?>&id_petugas=<?php echo base64_encode($Get['id_petugas']) ?>">Edit</a>
+                                <button class="btn btn-outline-danger deleteBtn" onclick="konfirmasi('<?php echo base64_encode($Get['id_petugas']) ?>')">Delete</button>
+                            </td>
+
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
 
 
-<h1>OOP - Class, Object, Property, Method With <u>MVC</u></h1>
-<h2>CRUD and CSRF</h2>
-<h3><a href="View_siswa.php">Siswa</a> | <a href="View_spp.php">SPP</a> | <a href="View_kelas.php">Kelas</a> | <a href="View_pembayaran.php">Pembayaran</a></h3>
-<h3>Table Petugas</h3>
-<h3><a href="View_post_petugas.php">Add Data</a></h3>
+            </tbody>
+        </table>
+        </p>
+    </div>
+</div>
 
-
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Nama Petugas</th>
-        <th>Level</th>
-        <th>Tools</th>
-    </tr>
-    <?php
-    // Decision validation variabel
-    if (isset($GetPetugas)) {
-        $no = 1;
-        foreach ($GetPetugas as $Get) {
-    ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $Get['username']; ?></td>
-                <td><?php echo $Get['password']; ?></td>
-                <td><?php echo $Get['nama_petugas']; ?></td>
-                <td><?php echo $Get['level']; ?></td>
-                <td>
-                    <a href="../Views/View_put_petugas.php?id_petugas=<?php echo base64_encode($Get['id_petugas']) ?>">view</a>
-                    <input type="submit" onclick="konfirmasi(<?php echo $Get['id_petugas'] ?>)" value="Delete">
-
-                </td>
-            </tr>
-    <?php
-        }
-    }
-    ?>
-</table>
 <script>
     function konfirmasi(id_petugas) {
+        var a = id_petugas;
         if (window.confirm("Apakah anda ingin menghapus data ini?")) {
-            window.location.href = '../Config/Routes.php?function=delete_petugas&id_petugas=<?php echo base64_encode($Get['id_petugas']) ?>';
+            window.location.href = '../Config/Routes.php?function=delete_petugas&id_petugas=' + a;
         };
     }
 </script>

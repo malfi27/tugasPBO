@@ -8,46 +8,54 @@ $GetKelas = $kelas->GetData_All();
 // untuk mengecek di object $siswa ada berapa banyak Property
 // echo var_dump($kelas);
 ?>
+<div class="card border-light cardBackground">
+    <div class="card-header">OOP - Class, Object, Property, Method With <u>MVC</u></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">CRUD and CSRF</h4>
+        <h5 class="card-title">Table Kelas</h5>
+        <h5 class=" card-title"><a class="btn addDataBtn" href="main.php?menu=<?php echo base64_encode('id_po_k') ?>">Add Data</a></h5>
 
+        <p class="card-text">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Kelas</th>
+                    <th scope="col">Kompetensi Keahlian</th>
+                    <th scope="col" class="text-center">Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Decision validation variabel
+                if (isset($GetKelas)) {
+                    $no = 1;
+                    foreach ($GetKelas as $Get) {
+                ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $Get['nama_kelas']; ?></td>
+                            <td><?php echo $Get['kompetensi_keahlian']; ?></td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-light" href="main.php?menu=<?php echo base64_encode('id_pu_k') ?>&id_kelas=<?php echo base64_encode($Get['id_kelas']) ?>">Edit</a>
+                                <button class="btn btn-outline-danger deleteBtn" onclick="konfirmasi('<?php echo base64_encode($Get['id_kelas']) ?>')">Delete</button>
+                            </td>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
 
-<h1>OOP - Class, Object, Property, Method With <u>MVC</u></h1>
-<h2>CRUD and CSRF</h2>
-<h3><a href="View_siswa.php">Siswa</a> | <a href="View_spp.php">SPP</a> | <a href="View_petugas.php">Petugas</a> | <a href="View_pembayaran.php">Pembayaran</a></h3>
-<h3>Table Kelas</h3>
-<h3><a href="View_post_kelas.php">Add Data</a></h3>
-
-
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Nama Kelas</th>
-        <th>Kompetensi Keahlian</th>
-        <th>Tools</th>
-    </tr>
-    <?php
-    // Decision validation variabel
-    if (isset($GetKelas)) {
-        $no = 1;
-        foreach ($GetKelas as $Get) {
-    ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $Get['nama_kelas']; ?></td>
-                <td><?php echo $Get['kompetensi_keahlian']; ?></td>
-                <td>
-                    <a href="../Views/View_put_kelas.php?id_kelas=<?php echo base64_encode($Get['id_kelas']) ?>">view</a>
-                    <input type="submit" onclick="konfirmasi(<?php echo $Get['id_kelas'] ?>)" value="Delete">
-                </td>
-            </tr>
-    <?php
-        }
-    }
-    ?>
-</table>
+            </tbody>
+        </table>
+        </p>
+    </div>
+</div>
 <script>
     function konfirmasi(id_kelas) {
+        var a = id_kelas;
         if (window.confirm("Apakah anda ingin menghapus data ini?")) {
-            window.location.href = '../Config/Routes.php?function=delete_kelas&id_kelas=<?php echo base64_encode($Get['id_kelas']) ?>';
-        };
+            window.location.href = '../Config/Routes.php?function=delete_kelas&id_kelas=' + a;
+        }
     }
 </script>

@@ -7,62 +7,94 @@ include '../Controllers/Controller_siswa.php';
 $siswa = new Controller_siswa();
 $GetKelas = $siswa->GetData_Kelas();
 ?>
-<form action="../Config/Routes.php?function=create_siswa" method="POST">
-    <input type="hidden" name="csrf_token" value="<?php echo CreateCSRF(); ?>" />
-    <table border="1">
-        <tr>
-            <td>NISN</td>
-            <td><input type="text" name="nisn"></td>
-        </tr>
-        <tr>
-            <td>NIS</td>
-            <td><input type="text" name="nis"></td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td><input type="text" name="nama"></td>
-        </tr>
-        <tr>
-            <td>Kelas</td>
 
 
-            <td>
-                <select name="id_kelas">
-                    <option value="">Pilih Kelas</option>
-                    <?php
-                    foreach ($GetKelas as $Get) : ?>
-                        <option value="<?php echo $Get['id_kelas'] ?>"><?php echo $Get['nama_kelas'] ?></option>
+<div class="card border-light bg-info">
+    <div class="card-header"><a class="btn btn-primary" href="main.php?menu=<?php echo base64_encode('id_s') ?>">Kembali</a></div>
+    <div class="card-body text-dark">
+        <h4 class="card-title">Form Tambah Siswa</h4>
 
-                    <?php endforeach; ?>
-                </select>
-            </td>
+        <p class="card-text">
+        <form action="../Config/Routes.php?function=create_siswa" method="POST">
+            <input type="hidden" name="csrf_token" value="<?php echo CreateCSRF(); ?>" />
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NISN</label>
+                <div class="col-sm-10">
+                    <input style="background-color: lightgray;  color: royalblue;" type="text" name="nisn" onKeyPress="return  isNumberKey(event);" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIS</label>
+                <div class="col-sm-10">
+                    <input style="background-color: lightgray;  color: royalblue;" type="text" name="nis" onKeyPress="return  isNumberKey(event);" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                    <input style="background-color: lightgray;  color: royalblue;" type="text" name="nama" onKeyPress="return ValidateAlpha(event);" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Kelas</label>
+                <div class="col-sm-4">
+                    <select name="id_kelas" required class="form-control" style="background-color: lightgray;  color: royalblue;">
+                        <option value="">Choose...</option>
+                        <?php
+                        foreach ($GetKelas as $Get) : ?>
+                            <option value=" <?php echo $Get['id_kelas'] ?>"><?php echo $Get['nama_kelas'] ?></option>
 
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td><input type="text" name="alamat"></td>
-        </tr>
-        <tr>
-            <td>No Telepon</td>
-            <td><input type="text" name="no_telp"></td>
-        <tr>
-            <td>Nominal SPP</td>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-10">
+                    <input style="background-color: lightgray;  color: royalblue;" type="text" name="alamat" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">No Telepon</label>
+                <div class="col-sm-10">
+                    <input style="background-color: lightgray;  color: royalblue;" type="text" name="no_telp" onKeyPress="return  isNumberKey(event);" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nominal SPP</label>
+                <div class="col-sm-4">
+                    <select name="id_spp" required class="form-control" style="background-color: lightgray;  color: royalblue;">
+                        <option value="">Choose...</option>
+                        <option value="1">30000</option>
+                        <option value="2">25000</option>
+                        <option value="3">20000</option>
+                        <option value="4">15000</option>
+                    </select>
+                </div>
+            </div>
+            <input style="margin-left: 92%;" class="btn btn-primary" type="submit" name="proses" value="Tambah">
+        </form>
 
+        </p>
+    </div>
+</div>
 
-            <td>
-                <select name="id_spp">
+<br>
+<script>
+    function ValidateAlpha(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
 
-                    <option value="">Pilih Nominal SPP</option>
-                    <option value="1">30000</option>
-                    <option value="2">25000</option>
-                    <option value="3">20000</option>
-                    <option value="4">15000</option>
-                </select>
+            return false;
+        return true;
+    }
 
-            </td>
-
-        </tr>
-        <tr>
-            <td colspan="2" align="right"><input type="submit" name="proses" value="Create"></td>
-        </tr>
-    </table </form>
+    function isNumberKey(evt) {
+        //var e = evt || window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode != 46 && charCode > 31 &&
+            (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>
